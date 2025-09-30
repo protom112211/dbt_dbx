@@ -11,9 +11,13 @@ on:
 jobs:
   dbt_run:
     runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Python
@@ -26,17 +30,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt-core dbt-spark
 
-      - name: Configure Databricks connection
-        run: |
-          export DATABRICKS_SERVER_HOSTNAME=${{ secrets.DATABRICKS_HOST }}
-          export DATABRICKS_HTTP_PATH=${{ secrets.DATABRICKS_HTTP_PATH }}
-          export DATABRICKS_TOKEN=${{ secrets.DATABRICKS_TOKEN }}
-
       - name: dbt debug
-        run: dbt debug --profiles-dir .
+        run: dbt debug --profiles-dir ci_profiles --profile first_project
 
       - name: dbt run
-        run: dbt run --profiles-dir .
+        run: dbt run --profiles-dir ci_profiles --profile first_project
 
       - name: dbt test
-        run: dbt test --profiles-dir .
+        run: dbt test --profiles-dir ci_profiles --profile first_project
