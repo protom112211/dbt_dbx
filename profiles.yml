@@ -1,4 +1,4 @@
-my_databricks_profile:
+first_project:
   target: dev
   outputs:
     dev:
