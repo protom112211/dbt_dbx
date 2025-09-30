@@ -1,12 +1,11 @@
-first_project:
+first_project:           # must match profile in dbt_project.yml
   target: dev
   outputs:
     dev:
       type: spark
-      method: token
+      method: http             # <-- must be http for Databricks SQL endpoint
       host: "{{ env_var('DATABRICKS_HOST') }}"
       http_path: "{{ env_var('DATABRICKS_HTTP_PATH') }}"
       token: "{{ env_var('DATABRICKS_TOKEN') }}"
-      #catalog: hive_metastore         # optional
-      schema: dbt_schema1              # change to your schem
-      threads: 10
+      schema: your_schema_name   # replace with your schema
+      threads: 1
