@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+    - name: dbx_sources
+      schema: default
+      tables: 
+        - name: amazon_sale
+          columns:
+            - name: index
+              tests: 
+                - not_null 
+                - unique
+            - name: "'Order ID'"
+              tests: 
+                - not_null

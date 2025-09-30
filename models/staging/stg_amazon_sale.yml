@@ -1,0 +1,14 @@
+version: 2
+
+models:
+    - name: stg_amazon_sale
+      columns: 
+        - name: index
+          tests: 
+            - unique 
+            - not_null
+            - positive_numbers
+        - name: order_id
+          tests: 
+            - not_null
+            - unique
