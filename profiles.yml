@@ -1,0 +1,12 @@
+my_databricks_profile:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: token
+      host: "{{ env_var('DATABRICKS_HOST') }}"
+      http_path: "{{ env_var('DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      #catalog: hive_metastore        # optional
+      schema: dbt_schema1              # change to your schem
+      threads: 10
